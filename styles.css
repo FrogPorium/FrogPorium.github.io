@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+
+.title-frogporium{
+    color: rgb(248, 179, 234);
+    background-color:rgba(0, 153, 49, 0.842);
+    font-family: 'Dancing Script', sans-serif;
+    font-size: 12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo{
+    width: 12rem;
+    height: auto;
+    border-radius: 50%;
+
+}
+.subtitle-frogporium{
+    color: rgb(72, 120, 0);
+    font-family: 'Share Tech', sans-serif;
+    font-size: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+html{
+    background-color: rgba(50, 244, 111, 0.66);
+}
+.insta-link img{
+    width: 14rem;
+    height: auto;
+}
+.tiktok-link img{
+    width: 24rem;
+    height: auto;
+}
+.youtube-link img{
+    width: 20rem;
+    height: auto;
+}
+.center{
+    color: rgb(72, 120, 0);
+    font-family: 'Share Tech', sans-serif;
+    display: flex;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
+}
+.shrimp{
+    height: 24rem;
+    width: auto;
+}
+.graduation{
+    height: 24rem;
+    width: auto;
+}
+.star{
+    height: 24rem;
+    width: auto;
+}
+.example-pictures{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+}
+.nothing-here{
+    font-size: 50rem;
+}
