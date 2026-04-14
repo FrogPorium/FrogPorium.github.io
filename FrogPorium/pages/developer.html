@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Panel - FrogPorium</title>
+
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../developer-styles.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+<!-- ===== HAMBURGER + OVERLAY ===== -->
+<div class="hamburger" id="hamburger">☰</div>
+<div class="overlay" id="overlay"></div>
+
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <div class="sidebar" id="sidebar">
+      <h2>🐸 FrogPorium</h2>
+
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="#" class="nav-link">Latest Posts</a>
+      <a href="#" class="nav-link">Gallery</a>
+      <a href="#" class="nav-link">Contact</a>
+      <a href="./developer.html" class="nav-link">Developer</a>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+
+      <h1 class="title-frogporium">Developer Panel</h1>
+
+      <div style="text-align:center; margin-top:20px;">
+        <textarea id="postInput" placeholder="Write a new post..."
+          rows="5" style="width:80%; max-width:500px;"></textarea>
+
+        <br><br>
+
+        <button id="postBtn">Post</button>
+        <button id="logoutBtn">Log Out</button>
+
+        <p id="statusMsg" style="margin-top:10px;"></p>
+      </div>
+
+      <div id="allPostsContainer" style="max-width:600px; margin:20px auto;"></div>
+
+  </div>
+
+</div>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // ===== FIREBASE CONFIG =====
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgYCmr7dRt9-HcXGtuoMPyzwfTyK_ZqBo",
+    authDomain: "frogporiumposts.firebaseapp.com",
+    projectId: "frogporiumposts",
+    storageBucket: "frogporiumposts.appspot.com",
+    messagingSenderId: "534842103686",
+    appId: "1:534842103686:web:ada766123cf6b288607e07"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // ===== LOGIN CHECK =====
+  if (!sessionStorage.getItem("developerLoggedIn")) {
+    window.location.href = "login.html";
+  }
+
+  // ===== ELEMENTS =====
+  const postBtn = document.getElementById("postBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const input = document.getElementById("postInput");
+  const statusMsg = document.getElementById("statusMsg");
+  const container = document.getElementById("allPostsContainer");
+
+  // ===== SIDEBAR =====
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const hamburger = document.getElementById("hamburger");
+
+  function toggleSidebar() {
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+  }
+
+  hamburger.addEventListener("click", toggleSidebar);
+  overlay.addEventListener("click", toggleSidebar);
+
+  document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", toggleSidebar);
+  });
+
+  // ===== ADD POST =====
+  postBtn.addEventListener("click", () => {
+    const text = input.value.trim();
+
+    if (!text) {
+      statusMsg.style.color = "red";
+      statusMsg.textContent = "Post cannot be empty!";
+      return;
+    }
+
+    db.collection("posts").add({
+      text: text,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      statusMsg.style.color = "green";
+      statusMsg.textContent = "Post added!";
+      input.value = "";
+      loadPosts();
+    })
+    .catch(err => {
+      console.error(err);
+      statusMsg.style.color = "red";
+      statusMsg.textContent = "Error posting!";
+    });
+  });
+
+  // ===== LOAD POSTS =====
+  function loadPosts() {
+    container.innerHTML = "";
+
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .get()
+      .then(snapshot => {
+
+        if (snapshot.empty) {
+          container.innerHTML = "<p>No posts yet.</p>";
+          return;
+        }
+
+        snapshot.forEach(doc => {
+
+          const postDiv = document.createElement("div");
+          postDiv.className = "post";
+
+          const text = document.createElement("span");
+          text.textContent = doc.data().text;
+
+          const del = document.createElement("button");
+          del.textContent = "Delete";
+
+          del.addEventListener("click", () => {
+            db.collection("posts").doc(doc.id).delete()
+              .then(loadPosts);
+          });
+
+          postDiv.appendChild(text);
+          postDiv.appendChild(del);
+          container.appendChild(postDiv);
+        });
+      });
+  }
+
+  // ===== LOGOUT =====
+  logoutBtn.addEventListener("click", () => {
+    sessionStorage.removeItem("developerLoggedIn");
+    window.location.href = "login.html";
+  });
+
+  // initial load
+  loadPosts();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Login - FrogPorium</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<h1 class="title-frogporium">Developer Login</h1>
+
+<div style="text-align:center; margin-top:30px;">
+  <input type="password" id="passwordInput" placeholder="Enter developer password" style="padding:10px; font-size:1rem; width:250px; border-radius:5px; border:1px solid #ccc;">
+  <br><br>
+  <button onclick="checkPassword()">Login</button>
+  <p id="errorMsg" style="color:red; margin-top:10px;"></p>
+</div>
+
+<script>
+// 🔑 Set your developer password here
+const DEV_PASSWORD = "5228"; // change this to your desired password
+
+function checkPassword() {
+  const input = document.getElementById("passwordInput").value;
+  const error = document.getElementById("errorMsg");
+
+  if(input === DEV_PASSWORD) {
+    // ✅ Save flag in sessionStorage
+    sessionStorage.setItem("developerLoggedIn", "true");
+
+    // Redirect to developer page
+    window.location.href = "developer.html";
+  } else {
+    error.textContent = "Incorrect password!";
+  }
+}
+</script>
+
+</body>
+</html>
