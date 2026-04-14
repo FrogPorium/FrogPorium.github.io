@@ -6,28 +6,78 @@
     <title>FrogPorium!</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <h1 class="title-frogporium">
-        <a><img class="logo" src="images/logo.jpg">FrogPorium.</a></h1>
-    <div class="center">
-            <a class="tiktok-link" href="https://www.tiktok.com/@frogporiumcrochet">
-                <img src="images/tiktok.png">
-            </a>
-            <a class="insta-link" href="https://www.instagram.com/frogporiumcrochet/">
-                <img src="https://th.bing.com/th/id/R.66b077fe514e5a24fa180460760ee2a2?rik=4%2be%2fjRO30M688Q&riu=http%3a%2f%2fwww.pngplay.com%2fwp-content%2fuploads%2f1%2fInstagram-Logo-Transparent-Image.png&ehk=priktvVyJAQCvP29eciotlzeeB96l6Vv9iSoHxKKv0o%3d&risl=&pid=ImgRaw&r=0">
-            </a>
-            <a class="youtube-link" href="./pages/coming-soon.html">
-                <img src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Logo.png">
-            </a>
+
+<!-- Hamburger -->
+<div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+<!-- Dark overlay -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>🐸 FrogPorium</h2>
+
+        <a href="#" onclick="toggleSidebar()">Home</a>
+        <a href="#" onclick="toggleSidebar()">Latest Posts</a>
+        <a href="#" onclick="toggleSidebar()">Gallery</a>
+        <a href="#" onclick="toggleSidebar()">Contact</a>
+        <a href="./pages/developer.html" onclick="toggleSidebar()">Developer</a>
     </div>
-    <h2 class="subtitle-frogporium">Welcome to Frogporium!<h2>
+
+    </div>
+</div>
+
+    <h1 class="title-frogporium">
+        <img class="logo" src="images/logo.jpg" alt="FrogPorium logo">
+        FrogPorium.
+    </h1>
+
+    <div class="center">
+        <a class="tiktok-link" href="https://www.tiktok.com/@frogporiumcrochet">
+            <img src="images/tiktok.png" alt="TikTok">
+        </a>
+
+        <a class="insta-link" href="https://www.instagram.com/frogporiumcrochet/">
+            <img src="images/instagram.png" alt="Instagram">
+        </a>
+
+        <a class="youtube-link" href="./pages/coming-soon.html">
+            <img src="images/youtube.png" alt="YouTube">
+        </a>
+    </div>
+
+    <h2 class="subtitle-frogporium">Welcome to Frogporium!</h2>
+
     <div class="example-pictures">
         <a href="https://www.instagram.com/p/DPbzg5OjVLF/?img_index=1">
-            <img class="graduation" src="images/graduation.jpeg">
+            <img class="graduation" src="images/graduation.jpeg" alt="Graduation">
         </a>
+
         <a href="https://www.instagram.com/p/DNBqbvpo1CI/">
-            <img class="star" src="images/star.jpeg">
+            <img class="star" src="images/star.jpeg" alt="Star">
         </a>
+
+        <a href="https://www.instagram.com/p/DQ9n8NxiD4c/" target="_blank">
+            <img class="shrimp" src="images/shrimp.jpeg" alt="Shrimp">
+        </a>
+    </div>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
         <a href="https://www.instagram.com/p/DQ9n8NxiD4c/" _blank>
             <img class="shrimp"  src="/images/shrimp.jpeg">
         </a>
